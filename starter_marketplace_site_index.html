@@ -1,0 +1,141 @@
+<!--
+Starter HTML pentru un site simplu in care expui si vinzi aparate foto.
+Cum se foloseste:
+1. Deschide fisierul in browser local ca "index.html" ca sa vezi cum arata.
+2. Inlocuieste imaginile din folderul "images" sau link-urile img src cu ale tale.
+3. Schimba numele vanzatorului, descrierile si link-urile PayPal/payments din butoanele "Buy".
+4. Ca sa publici: uploadeaza pe GitHub Pages, Netlify (drag & drop) sau orice hosting static.
+
+Functionalitati incluse:
+- galerie responsive cu carduri pentru produs
+- pagina detaliu modal cu poze mai mari
+- buton "Contact" care deschide email
+- buton "Buy" care este link catre PayPal.me (pune linkul tau) sau link catre metoda de plata preferata
+
+Notite:
+- Acesta este un site static, nu proceseaza plati in sine. Legaturile pot redirectiona catre PayPal, Gumroad, Stripe Checkout sau catre o pagina de contact.
+- Pentru cos cumparaturi complet, trebuie un serviciu extern (Ecwid embed, Gumroad, Shopify) sau backend (nu gratuit in general).
+-->
+
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MarketFoto — aparate foto</title>
+  <style>
+    :root{--maxw:1100px;--card-gap:18px}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:#f7f7f8;color:#111}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:0 16px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    header h1{margin:0;font-size:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--card-gap)}
+    .card{background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(12,20,30,0.06);overflow:hidden;display:flex;flex-direction:column}
+    .thumb{aspect-ratio:4/3;object-fit:cover}
+    .card-body{padding:12px;flex:1;display:flex;flex-direction:column}
+    .title{font-weight:600;margin:0 0 6px;font-size:15px}
+    .meta{font-size:13px;color:#555;margin-bottom:auto}
+    .price{font-weight:700;margin-top:8px}
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .btn{flex:1;padding:9px 10px;border-radius:8px;text-align:center;text-decoration:none;font-weight:600}
+    .btn.contact{background:#eef2ff;color:#1a1a7a}
+    .btn.buy{background:#1a9b4a;color:#fff}
+    footer{margin:28px 0;padding:12px 0;text-align:center;color:#666;font-size:13px}
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:50}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:10px;max-width:900px;width:96%;max-height:90vh;overflow:auto;padding:18px}
+    .modal-grid{display:flex;gap:12px}
+    .modal-grid img{max-width:60%;height:auto;border-radius:6px}
+    .modal-info{flex:1}
+    @media(max-width:720px){.modal-grid{flex-direction:column}.modal-grid img{max-width:100%}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>MarketFoto — aparate foto</h1>
+      <div>Free starter site • Example</div>
+    </header>
+
+    <p>Cum functioneaza: adaugi produse mai jos. Cand un vizitator vrea sa cumpere, poate trimite email sau apasa butonul Buy care redirectioneaza catre metoda de plata pe care o configurezi.</p>
+
+    <section class="grid" id="catalog">
+      <!-- Exemplu produs 1 -->
+      <article class="card" data-id="1" data-title="Canon EOS 5D (ex)" data-price="450" data-desc="Body in stare buna, 60k fotografii, include baterie si incarcator">
+        <img class="thumb" src="https://images.unsplash.com/photo-1519183071298-a2962be54a10?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Canon 5D">
+        <div class="card-body">
+          <h3 class="title">Canon EOS 5D</h3>
+          <div class="meta">Body • folosit • Bucuresti</div>
+          <div class="price">450 EUR</div>
+
+          <div class="actions">
+            <a class="btn contact" href="mailto:example@email.com?subject=Interes%20Canon%205D">Contact</a>
+            <a class="btn buy" href="https://www.paypal.me/replace_with_your_link/450" target="_blank" rel="noopener">Buy</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Exemplu produs 2 -->
+      <article class="card" data-id="2" data-title="Nikon D750" data-price="520" data-desc="Include obiectiv 24-120mm, condition: very good">
+        <img class="thumb" src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Nikon D750">
+        <div class="card-body">
+          <h3 class="title">Nikon D750</h3>
+          <div class="meta">Kit 24-120mm • folosit</div>
+          <div class="price">520 EUR</div>
+          <div class="actions">
+            <a class="btn contact" href="mailto:example@email.com?subject=Interes%20Nikon%20D750">Contact</a>
+            <a class="btn buy" href="https://www.paypal.me/replace_with_your_link/520" target="_blank" rel="noopener">Buy</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Adauga carduri asemanatoare pentru produsele tale -->
+    </section>
+
+    <footer>
+      Sfaturi: include pret, stare, localitate, poze clare si detalii tehnice. Pentru plati, foloseste PayPal, Gumroad, sau un link catre transfer bancar.
+    </footer>
+  </div>
+
+  <!-- modal detaliu produs -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-card">
+      <button id="closeModal" style="float:right;font-weight:700;background:none;border:none;font-size:18px">✕</button>
+      <div id="modalContent" class="modal-grid">
+        <!-- continut populat din JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cand apesi pe un card se deschide modalul cu detalii
+    document.getElementById('catalog').addEventListener('click', function(e){
+      var card = e.target.closest('.card');
+      if(!card) return;
+      var id = card.dataset.id;
+      var title = card.dataset.title;
+      var price = card.dataset.price;
+      var desc = card.dataset.desc;
+      var img = card.querySelector('img').src;
+
+      var modal = document.getElementById('modal');
+      var mc = document.getElementById('modalContent');
+      mc.innerHTML = `\n        <img src="${img}" alt="${title}">\n        <div class=\"modal-info\">\n          <h2>${title}</h2>\n          <p>${desc}</p>\n          <p style=\"font-weight:700\">${price} EUR</p>\n          <p>Contact: <a href=\"mailto:example@email.com?subject=Interes%20${encodeURIComponent(title)}\">email</a></p>\n          <p><a class=\"btn buy\" href=\"https://www.paypal.me/replace_with_your_link/${price}\" target=\"_blank\">Buy</a></p>\n        </div>`;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function(){
+      var modal = document.getElementById('modal');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    });
+
+    // inchidere la click in afara
+    document.getElementById('modal').addEventListener('click', function(e){
+      if(e.target===this) { this.classList.remove('open'); }
+    });
+  </script>
+</body>
+</html>
